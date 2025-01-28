@@ -217,6 +217,7 @@
 #[cfg(any(feature = "std", test))]
 #[macro_use]
 extern crate std;
+use std::vec::Vec;
 
 #[cfg(all(not(feature = "std"), not(test)))]
 #[macro_use]
@@ -295,6 +296,10 @@ pub type Bytes = [u8; 16];
 /// * [Version Field in RFC 9562](https://www.ietf.org/rfc/rfc9562.html#section-4.2)
 #[derive(Clone, Copy, Debug, PartialEq)]
 #[non_exhaustive]
+#[cfg_attr(
+    feature = "std",
+    derive(bitcode::Encode, bitcode::Decode)
+)]
 #[repr(u8)]
 pub enum Version {
     /// The "nil" (all zeros) UUID.
@@ -324,7 +329,11 @@ pub enum Version {
 /// # References
 ///
 /// * [Variant Field in RFC 9562](https://www.ietf.org/rfc/rfc9562.html#section-4.1)
-#[derive(Clone, Copy, Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)] 
+#[cfg_attr(
+    feature = "std",
+    derive(bitcode::Encode, bitcode::Decode)
+)]
 #[non_exhaustive]
 #[repr(u8)]
 pub enum Variant {
@@ -434,6 +443,10 @@ pub enum Variant {
 ///
 /// The `Uuid` type is always guaranteed to be have the same ABI as [`Bytes`].
 #[derive(Clone, Copy, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[cfg_attr(
+    feature = "std",
+    derive(bitcode::Encode, bitcode::Decode)
+)]
 #[repr(transparent)]
 // NOTE: Also check `NonNilUuid` when ading new derives here
 #[cfg_attr(

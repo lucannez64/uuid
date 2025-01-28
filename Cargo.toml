@@ -79,6 +79,9 @@ atomic = ["dep:atomic"]
 
 borsh = ["dep:borsh", "dep:borsh-derive"]
 
+[dependencies]
+bitcode = { version = "0.6.3", features = ["derive"] }
+
 # Public: Used in trait impls on `Uuid`
 [dependencies.bytemuck]
 version = "1.14.0"
